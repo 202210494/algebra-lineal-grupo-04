@@ -7,12 +7,15 @@ class Ecuacion:
             self.a, self.b, self.c, self.d = coeficientes[:4]
             self.igual = coeficientes[4]
 
+            self.d -= self.igual
+            self.igual = 0
+
     def _parsear_ecuacion(self) -> list[int]:
         terminos = self.input.split("+")
         coeficientes = []
 
         for termino in terminos:
-            valor = self._extraer_valor(termino)
+            valor = self._extraer_coeficientes(termino)
 
             try:
                 coeficientes.append(int(valor))
@@ -24,7 +27,7 @@ class Ecuacion:
 
         return coeficientes
 
-    def _extraer_valor(self, termino):
+    def _extraer_coeficientes(self, termino):
                 variables = ['x', 'y', 'z']
 
                 for variable in variables:

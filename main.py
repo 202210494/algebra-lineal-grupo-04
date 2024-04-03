@@ -1,7 +1,7 @@
 from Plano import Plano
 
-# ecuacion = "2 x + 4y+12z + 3 = 0"
-ecuacion = input()
+ecuacion = "2x + 4y + 12z + 3 = 1"
+# ecuacion = input()
 plano = Plano(ecuacion)
 
 print(f"Input: \"{ecuacion}\"\n")
