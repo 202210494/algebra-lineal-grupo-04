@@ -30,7 +30,7 @@ def punto_en_planoR3(coeficientes_plano, punto: Punto3D):
     for coeficiente, coordenada in zip(coeficientes_plano, coordenadas):
         sum += coeficiente * coordenada
 
-    trash = coordenadas.pop()
+    coordenadas.pop()
 
     if sum == 0:
         print("El punto está en el mismo plano")
