@@ -1,3 +1,6 @@
+from Punto import Punto3D
+
+
 def ingresar_valores_float(arr,questions):
   for question in questions:
     input_incorrecto = True
@@ -18,46 +21,47 @@ def ingresar_valores_float(arr,questions):
       input_incorrecto = False
       arr.append(valor)
 
-def punto_en_planoR3(coeficientes_plano, coordenadas_punto):
+def punto_en_planoR3(coeficientes_plano, punto: Punto3D):
 
-  coordenadas_punto.append(1)
-  sum = 0
+    coordenadas = punto.coordenadas
+    coordenadas.append(1)
+    sum = 0
 
-  for coeficiente, coordenada in zip(coeficientes_plano, coordenadas_punto):
-    sum += coeficiente * coordenada
+    for coeficiente, coordenada in zip(coeficientes_plano, coordenadas):
+        sum += coeficiente * coordenada
 
-  trash = coordenadas_punto.pop()
+    trash = coordenadas.pop()
 
-  if sum == 0:
-    print("El punto está en el mismo plano")
-    return True
+    if sum == 0:
+        print("El punto está en el mismo plano")
+        return True
 
-  else:
-    return False
+    else:
+        return False
 
-def calcular_lambda(arr_plano, coords):
+def calcular_lambda(coeficientes_plano, punto: Punto3D):
 
   sum_coefs_lambda = 0
   sum_indep_lambda = 0
 
   for i in range(3):
-    sum_coefs_lambda = sum_coefs_lambda + arr_plano[i]*arr_plano[i]
-    sum_indep_lambda = sum_indep_lambda + coords[i]*arr_plano[i]
+    sum_coefs_lambda += coeficientes_plano[i] ** 2
+    sum_indep_lambda += punto.coordenadas[i] * coeficientes_plano[i]
 
-  sum_indep_lambda = sum_indep_lambda + arr_plano[3]
+  sum_indep_lambda = sum_indep_lambda + coeficientes_plano[3]
 
-  return (sum_indep_lambda * -1)/sum_coefs_lambda
+  return (-sum_indep_lambda) / sum_coefs_lambda
 
-def calcular_proyeccion_ortogonal(arr_plano,coords):
-  lamb = calcular_lambda(arr_plano,coords)
+def calcular_proyeccion_ortogonal(coeficientes_plano, punto: Punto3D):
+    lamb = calcular_lambda(coeficientes_plano, punto)
 
-  proy_x = 0
-  proy_y = 0
-  proy_z = 0
+    proy_x = 0
+    proy_y = 0
+    proy_z = 0
 
-  proyeccion = [proy_x,proy_y,proy_z]
+    proyeccion = [proy_x,proy_y,proy_z]
 
-  for i in range(3):
-    proyeccion[i] = coords[i] + arr_plano[i] * lamb
+    for i in range(3):
+        proyeccion[i] = punto.coordenadas[i] + (coeficientes_plano[i] * lamb)
 
-  return proyeccion
+    return Punto3D(proyeccion[0], proyeccion[1], proyeccion[2])

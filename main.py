@@ -1,3 +1,4 @@
+from Punto import Punto3D
 from funciones import ingresar_valores_float, punto_en_planoR3, calcular_proyeccion_ortogonal
 
 
@@ -16,27 +17,22 @@ coeficientes_plano[3] -= coeficientes_plano.pop()
 
 texto_funcion = f"({coeficientes_plano[0]})x + ({coeficientes_plano[1]})y + ({coeficientes_plano[2]})z + ({coeficientes_plano[3]}) = 0"
 
-print("Su funcion es:",texto_funcion)
+print(f"Su funcion es: {texto_funcion}")
 
 
 #Ingresando las coordenadas
 ingresar_valores_float(coordenadas,enunciados_punto)
 
-texto_coords = f"({coordenadas[0]}; {coordenadas[1]}; {coordenadas[2]})"
+punto = Punto3D(coordenadas[0], coordenadas[1], coordenadas[2])
 
-print("Sus coordenadas son:",texto_coords)
-
-#array con las coordenadas de la proyeccion
-Tcoords = []
+print(f"Sus coordenadas son: {punto}")
 
 #si las coordenadas estan en el plano, su proyeccion es si misma
-if punto_en_planoR3(coeficientes_plano,coordenadas):
-  Tcoords = coordenadas
+if punto_en_planoR3(coeficientes_plano, punto):
+  punto_proyeccion = punto
 else:
-  Tcoords = calcular_proyeccion_ortogonal(coeficientes_plano,coordenadas)
+  punto_proyeccion = calcular_proyeccion_ortogonal(coeficientes_plano, punto)
   pass
 
-texto_Tcoords = f"({Tcoords[0]}; {Tcoords[1]}; {Tcoords[2]})"
-
-print(f"La proyección ortogonal del punto {texto_coords} en el plano {texto_funcion} es:")
-print(f"T(x; y; z) = {texto_Tcoords}")
+print(f"La proyección ortogonal del punto {punto} en el plano {texto_funcion} es:")
+print(f"T(x; y; z) = {punto_proyeccion}")
