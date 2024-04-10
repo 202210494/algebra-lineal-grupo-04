@@ -7,7 +7,6 @@ enunciados_punto = ["Ingresar coordenada x: ", "Ingresar coordenada y: ", "Ingre
 
 
 coeficientes_plano = []
-coordenadas= []
 
 ingresar_valores_float(coeficientes_plano, enunciados_funcion)
 
@@ -19,13 +18,8 @@ texto_funcion = f"({coeficientes_plano[0]})x + ({coeficientes_plano[1]})y + ({co
 
 print(f"Su funcion es: {texto_funcion}")
 
-
-#Ingresando las coordenadas
-ingresar_valores_float(coordenadas,enunciados_punto)
-
-punto = Punto3D(coordenadas[0], coordenadas[1], coordenadas[2])
-
-print(f"Sus coordenadas son: {punto}")
+coordenadas_punto = input("Ingrese las coordenadas del punto (x; y; z): ")
+punto = Punto3D(coordenadas_punto)
 
 #si las coordenadas estan en el plano, su proyeccion es si misma
 if punto_en_planoR3(coeficientes_plano, punto):

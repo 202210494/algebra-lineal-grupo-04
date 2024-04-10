@@ -64,4 +64,4 @@ def calcular_proyeccion_ortogonal(coeficientes_plano, punto: Punto3D):
     for i in range(3):
         proyeccion[i] = punto.coordenadas[i] + (coeficientes_plano[i] * lamb)
 
-    return Punto3D(proyeccion[0], proyeccion[1], proyeccion[2])
+    return Punto3D(f"{proyeccion[0]} {proyeccion[1]} {proyeccion[2]}")
