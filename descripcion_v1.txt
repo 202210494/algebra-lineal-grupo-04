@@ -1,0 +1,1 @@
+En el presente repositorio, vamos a incluir los diferentes archivos pertenecientes a la primera versión del programa hecho para el proyecto de Álgebra Lineal. Grupo 4.
