@@ -5,6 +5,9 @@ def main():
     loop = True
 
     while loop:
+        print("Proyección ortogonal de un punto en un plano en R3")
+        print("-----------------------------------------------")
+        print("Ingrese los coeficientes de la ecuación del plano en la forma ax + by + cz + d = 0")
         enunciados_funcion = ["Ingresar coeficiente de x: ","Ingresar coeficiente de y: ","Ingresar coeficiente de z: ","Ingresar valor constante: ", "Ingresar valor de igualdad: "]
 
         coeficientes_plano = []
@@ -12,6 +15,7 @@ def main():
         ingresar_valores_float(coeficientes_plano, enunciados_funcion)
 
         #restamos el valor de igualdad al valor constante para que la funcion iguale a cero
+
         #retiramos el valor de igualdad de la lista
         coeficientes_plano[3] -= coeficientes_plano.pop()
 
@@ -19,10 +23,11 @@ def main():
 
         print(f"Su funcion es: {texto_funcion}")
 
-        coordenadas_punto = input("Ingrese las coordenadas del punto (x; y; z): ")
+        print("\nIngrese las coordenadas del punto a proyectar")
+        coordenadas_punto = input("Ingrese las coordenadas (x; y; z) separadas por una coma: ")
         punto = Punto3D(coordenadas_punto)
 
-        #si las coordenadas estan en el plano, su proyeccion es si misma
+        # verificamos si el punto esta en el plano -> si es asi, su proyeccion es el mismo punto
         if punto_en_planoR3(coeficientes_plano, punto):
             punto_proyeccion = punto
         else:
