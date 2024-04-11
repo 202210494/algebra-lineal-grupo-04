@@ -43,10 +43,3 @@ class Ecuacion:
 
     def __str__(self):
         return f"{self.a}x + {self.b}y + {self.c}z + {self.d} = {self.igual}"
-
-class Plano:
-    def __init__(self, input):
-        self.ecuacion = Ecuacion(input)
-
-    def __str__(self):
-        return self.ecuacion.__str__()
