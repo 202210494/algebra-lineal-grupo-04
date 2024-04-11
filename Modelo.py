@@ -33,14 +33,20 @@ class Modelo:
          
     
     # Funcion que determina si un punto está en un plano
+    # para ello se reemplaza el punto en la ecuacion del plano
     def punto_en_planoR3(self, coeficientes_plano, coordenadas_punto):
-
+      # Se agrega un 1 al final de las coordenadas del punto para poder realizar la operación
       coordenadas_punto.append(1)
       sum = 0
+      # Se realiza la operación de reemplazo
+      # (a,b,c,d) = (2,-1,-2,1) (plano)
+      # (x,y,z) = (1,-3,0)  (punto original)
 
+      # a*x + b*y + c*z + d*(1) = 0 -> Esta en el plano
+      # 2*1 + -1*-3 + -2*0 + 1*(1) = 2 + 3 + 0 + 1 = 6 != 0 -> No está en el plano
       for coeficiente, coordenada in zip(coeficientes_plano, coordenadas_punto):
         sum += coeficiente * coordenada
-
+      # Se elimina el 1 agregado al final
       trash = coordenadas_punto.pop()
 
       if sum == 0:
@@ -74,6 +80,7 @@ class Modelo:
       # El nuevo punto proyectado se encuentra en la recta que pasa por el punto original y es perpendicular al plano
       # La ecuación de la recta es P = P + λV
         # (a,b,c,d) = (2,-1,-2,1) (plano)
+        # v = (2,-1,-2) (vector normal al plano)
         # (x,y,z) = (1,-3,0)  (punto original)
         # P = (1,-3,0) + λ(2,-1,-2) (punto proyectado)
 
