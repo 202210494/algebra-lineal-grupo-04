@@ -1,3 +1,6 @@
 __pycache__/
 .DS_Store
 Indicaciones
+build/
+dist/
+main.spec
