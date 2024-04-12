@@ -1,4 +1,3 @@
-
 class Controlador:
     def __init__(self, modelo):
         self.loop = True
@@ -17,7 +16,7 @@ class Controlador:
             self.m.ingresar_valores_float(coeficientes_plano, enunciados_funcion)
 
                 # d = (d-n) para que la funcion iguale a cero
-                # pop() para eliminar (n) y nos quedamos con el vector normal :D
+                # pop() para eliminar (n) 
             coeficientes_plano[3] -= coeficientes_plano.pop()
 
             # Comunicamos la Ecuacion general del plano introducido
@@ -27,7 +26,8 @@ class Controlador:
             print("\nIngrese las coordenadas del punto a proyectar")
             coordenadas_punto = input("Ingrese las coordenadas del punto (x; y; z): ")
             punto = self.m.crear_punto(coordenadas_punto)
-
+            
+            # Calcular la Proyeccion Ortogonal
             # verificamos si el punto esta en el plano -> si es asi, su proyeccion es el mismo punto
             # caso contrario, la calculamos
             if self.m.punto_en_planoR3(coeficientes_plano, punto.coordenadas):

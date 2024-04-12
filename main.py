@@ -11,5 +11,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# Se ha validado que los resultados de la proyeccion ortogonal 
-# fueran los mismos que el anteior programa
+
