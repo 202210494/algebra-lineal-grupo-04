@@ -58,13 +58,43 @@ def graficar_vectores(vecs, colors, alpha=1):
                    angles='xy', scale_units='xy', scale=1, color=colors[i],
                    alpha=alpha)
 
-    plt.xlim(-1,60)
-    plt.ylim(-1,60)
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+def graficar(plano, vectores, puntos):
+    fig = plt.figure()  # creamos el figure
+    ax = fig.add_subplot(111, projection="3d")  # de tipo 3d!
+
+    X, Y = np.meshgrid(np.linspace(-5, 5), np.linspace(-5, 5))  # creacion del meshgrid (rango de valores que tomaran X e Y)
+
+    # graficar plano
+    Z = -(plano[0]*X + plano[1]*Y + plano[3])/plano[2]  # aca simplemente igualamos Z igual a la funcion
+    ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)  # creamos la superficie del plano
+
+    # graficar puntos y vectores
+    for tag, punto in puntos.items():
+        ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10, label=tag)  # colocamos los puntos en el grafico
+
+    for tag, vector in vectores.items():
+        if (tag == "n" or tag == "-n"):
+            color = "orange"
+        elif (tag == "proy_n_u"):
+            color = "green"
+        else:
+            color = "purple"
+
+        # Suponiendo que vector es un array de 6 elementos [x_orig, y_orig, z_orig, x_dest, y_dest, z_dest]
+        ax.quiver(vector[0], vector[1], vector[2],  # origen x, origen y, origen z
+                  vector[3], vector[4], vector[5],  # destino x, destino y, destino z
+                  color=color, arrow_length_ratio=0)  # sin flecha
+
     plt.show()
 
-v1 = np.array([2,5])
-v2 = np.array([3,2])
+plano = [2, -3, 1, 2]
+vectores = {'v1': [1, 2, 3, 4, 5, 6]}  # Ejemplo de vector con origen y destino
+puntos = {'p1': [1, 2, 3], 'p2': [4, 5, 6]}  # Ejemplo de punto
 
-cmbl = 2 * v1 + 1 * v2
-
-graficar_vectores([v1,v2, cmbl], ['green','orange', 'purple'])
+graficar(plano, vectores, puntos)
