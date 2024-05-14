@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt    
 
 
-
-
 def vectores():
     matriz =np.array([[2,2,2],[6,2,6],[7,2,9]])
     vector =np.array([1,2,3])
