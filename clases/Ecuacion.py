@@ -43,3 +43,6 @@ class Ecuacion:
 
     def __str__(self):
         return f"{self.a}x + {self.b}y + {self.c}z + {self.d} = {self.igual}"
+    
+    def getCoeficientes(self):
+        return [self.a, self.b, self.c, self.d]
