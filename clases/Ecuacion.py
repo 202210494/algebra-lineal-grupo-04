@@ -2,7 +2,7 @@ import re
 
 class Ecuacion:
     def __init__(self, ecuacion_input):
-        self.input = ecuacion_input
+        self.__input = ecuacion_input
         resultado_parser = self.__parsear_input(ecuacion_input)
 
         if resultado_parser and len(resultado_parser) == 5:

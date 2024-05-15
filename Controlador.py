@@ -51,25 +51,25 @@ class Controlador:
             # Solicitamos el plano donde se proyectará el punto
             ecuacion_plano = input("Ingrese los coeficientes de la ecuación del plano en la forma ax + by + cz + d = 0: ")
             plano = self.m.crear_plano(ecuacion_plano)
-            print(f"Su funcion es: {plano.ecuacion.__str__()}")
+            print(f"Su funcion es: {plano.ecuacion}")
 
             # Solicitamos las coordenadas del punto a proyectar
             print("\nIngrese las coordenadas del punto a proyectar")
             coordenadas_punto = input("Ingrese las coordenadas del punto (x; y; z): ")
             punto = self.m.crear_punto(coordenadas_punto)
-            
+
 
             coeficientes_plano = plano.ecuacion.getCoeficientes()
             # Calcular la Proyeccion Ortogonal
             # verificamos si el punto esta en el plano -> si es asi, su proyeccion es el mismo punto
             # caso contrario, la calculamos
-            
+
             if self.m.punto_en_planoR3(coeficientes_plano, punto.coordenadas):
                 punto_proyeccion = punto
             else:
                 punto_proyeccion = self.m.calcular_proyeccion_ortogonal(coeficientes_plano, punto.coordenadas)
-            
-                print(f"La proyección ortogonal del punto {punto} en el plano {plano.ecuacion.__str__()} es:")
+
+                print(f"La proyección ortogonal del punto {punto} en el plano {plano.ecuacion} es:")
                 print(f"T(x; y; z) = {punto_proyeccion}")
 
                 self.Vizualizacion3D(coeficientes_plano, punto.coordenadas, punto_proyeccion)
@@ -77,6 +77,3 @@ class Controlador:
 
             if input("Otra vez? (Y/N): ") not in ["Y","y"]:
                 self.loop = False
-
-
-
