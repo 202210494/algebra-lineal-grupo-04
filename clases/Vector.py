@@ -1,23 +1,26 @@
 import re
+import math
 
 class Vector3D:
     def __init__(
         self,
         input_str: str | None = None,
-        x: float | None = None,
-        y: float | None = None,
-        z: float | None = None
+        i: float | None = None,
+        j: float | None = None,
+        k: float | None = None
     ):
-        if x is not None and y is not None and z is not None:
-            self.coordenadas = [x, y, z]
-            self.x, self.y, self.z = self.coordenadas
+        if i is not None and j is not None and k is not None:
+            self.coordenadas = [i, j, k]
+            self.i, self.j, self.k = self.coordenadas
 
         elif input_str:
             resultado_parser = self.__parsear_input(input_str)
 
             if resultado_parser and len(resultado_parser) == 3:
                 self.coordenadas = resultado_parser
-                self.x, self.y, self.z = self.coordenadas
+                self.i, self.j, self.k = self.coordenadas
+
+                self.magnitud = math.sqrt(pow(self.i, 2) + pow(self.j, 2) + pow(self.k, 2))
 
         else:
             raise ValueError("Input o valores de (x; y; z) no proporcionados.")
@@ -38,4 +41,4 @@ class Vector3D:
 
 
     def __str__(self):
-        return f"<{self.x}; {self.y}; {self.z}>"
+        return f"<{self.i}; {self.j}; {self.k}>"
