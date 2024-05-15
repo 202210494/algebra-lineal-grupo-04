@@ -1,48 +1,31 @@
+import re
+
 class Ecuacion:
     def __init__(self, ecuacion_input):
         self.input = ecuacion_input
-        coeficientes = self._parsear_ecuacion()
+        resultado_parser = self.__parsear_input(ecuacion_input)
 
-        if coeficientes and len(coeficientes) == 5:
-            self.a, self.b, self.c, self.d = coeficientes[:4]
-            self.igual = coeficientes[4]
+        if resultado_parser and len(resultado_parser) == 5:
+            self.a, self.b, self.c, self.d = resultado_parser[:4]
+            self.d -= resultado_parser[4]
 
-            self.d -= self.igual
-            self.igual = 0
 
-    def _parsear_ecuacion(self) -> list[int]:
-        terminos = self.input.split("+")
-        coeficientes = []
+    def __parsear_input(self, input: str) -> list[float] | None:
+        try:
+            regex_pattern = r"([-+]?\s*\d+(?:\.\d+)?)\s*x\s*([-+]?\s*\d+(?:\.\d+)?)\s*y\s*([-+]?\s*\d+(?:\.\d+)?)\s*z\s*([-+]?\s*\d+(?:\.\d+)?)\s*=\s*([-+]?\s*\d+(?:\.\d+)?)"
 
-        for termino in terminos:
-            valor = self._extraer_coeficientes(termino)
+            match = re.match(regex_pattern, input)
 
-            try:
-                coeficientes.append(int(valor))
-            except:
-                continue
+            if match:
+                a, b, c, d, igual = map(lambda x: float(x.replace(" ", "")), match.groups())
+                return [a, b, c, d, igual]
+        except:
+            raise ValueError("Input invalido.")
 
-        igual = self._extraer_igualdad(terminos[-1])
-        coeficientes.extend(map(int, igual))
-
-        return coeficientes
-
-    def _extraer_coeficientes(self, termino):
-                variables = ['x', 'y', 'z']
-
-                for variable in variables:
-                    if variable in termino:
-                        constante = termino.split(variable)
-                        return constante[0].strip()
-
-                return termino.strip() if termino else None
-
-    def _extraer_igualdad(self, termino_igualdad) -> list[int]:
-            terminos = termino_igualdad.split("=")
-            return [termino.strip() for termino in terminos]
 
     def __str__(self):
-        return f"{self.a}x + {self.b}y + {self.c}z + {self.d} = {self.igual}"
-    
+        return f"{self.a}x + {self.b}y + {self.c}z + {self.d} = 0"
+
+
     def getCoeficientes(self):
         return [self.a, self.b, self.c, self.d]
