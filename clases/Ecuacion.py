@@ -1,4 +1,5 @@
 import re
+from clases.Vector import Vector3D
 
 class Ecuacion:
     def __init__(self, ecuacion_input):
