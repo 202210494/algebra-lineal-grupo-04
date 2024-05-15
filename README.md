@@ -4,23 +4,25 @@
 
 ### Observaciones y formato
 
-- Levantar observaciones del docente
-  - Ingresar e del plano forma general.
-  - Implementar rotaciones.
-  - Usar una GUI.
-  - Implementar un visualizador para los procesos
-- Agregar figuras y diagramas al informe (ecuaciones NO IMG)
+- [ ] Levantar observaciones del docente
+
+  - [ ] Ingresar e del plano forma general.
+  - [x] Implementar rotaciones.
+  - [ ] Usar una GUI.
+  - [x] Implementar un visualizador para los procesos
+
+- [ ] Agregar figuras y diagramas al informe (ecuaciones NO IMG)
 
 ### Diagrama de Flujo, usos y conclusiones
 
-- Elaborar diagrama de flujo del programa
-- Indicar usos y el tipo de problema que se puede resolver (detallar conexion programa-tema (?))
-- Conclusiones
+- [ ] Elaborar diagrama de flujo del programa
+- [ ] Indicar usos y el tipo de problema que se puede resolver (detallar conexion programa-tema (?))
+- [ ] Conclusiones
 
 ### Estado del codigo y validaciones
 
-- Codigo al 80%
-- validar resultados para cada ejecucion (3 ejemplos)
+- [x] Codigo al 80%
+- [ ] validar resultados para cada ejecucion (3 ejemplos)
 
 ---
 
