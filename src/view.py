@@ -52,19 +52,19 @@ class ProyeccionView:
 
         # TODO: leer ecucacion del plano en un solo entry
 
-        self.frame_plano2 = tk.Frame(root)
+        '''self.frame_plano2 = tk.Frame(root)
         self.frame_plano2.pack(pady=10)
         tk.Label(self.frame_plano2, text="Ecuacion del Plano:").grid(row=0, columnspan=8)
         tk.Label(self.frame_plano2, text="(ax + by + cz + d = 0):").grid(row=1, column=0)
         self.entry_plano = tk.Entry(self.frame_plano2)
-        self.entry_plano.grid(row=1, column=1)
+        self.entry_plano.grid(row=1, column=1)'''
     
         self.calc_button = tk.Button(root, text="Calcular y Graficar")
         self.calc_button.pack(pady=10)
 
         self.frame_rotaciones = tk.Frame(root)
         self.frame_rotaciones.pack(pady=10)
-        tk.Label(self.frame_rotaciones, text="Rotaciones sexadecimal o radian?:").grid(row=0, columnspan=8) # columnspan=8 para que ocupe todo el ancho
+        tk.Label(self.frame_rotaciones, text="Rotaciones sexadecimal:").grid(row=0, columnspan=8) # columnspan=8 para que ocupe todo el ancho
         
         tk.Label(self.frame_rotaciones, text="Rotacion en X:").grid(row=1, column=0)
         self.entry_rot_x = tk.Entry(self.frame_rotaciones)
