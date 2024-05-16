@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
 import time
+import matplotlib as mpl
 
 class ProyeccionController:
     def __init__(self, root):
@@ -23,138 +24,135 @@ class ProyeccionController:
         P_P = self.view.get_punto()
         PL_M = self.view.get_plano()
         rotacion = self.view.get_rotaciones()
+        
         if P_P is not None and PL_M is not None and rotacion is not None:
-            plano, vectores, puntos = self.model.calcular_proyeccion(P_P, PL_M)
+            plano, vectores, puntos = self.model.calc_con_rotacion(P_P, PL_M, rotacion)
             self.animar(plano, vectores, puntos, rotacion)
 
 
-    '''
-    def rotar_punto(self, punto, rotacion):
-
-        Rx = np.array([[1, 0, 0],
-                       [0, np.cos(rotacion[0]), -np.sin(rotacion[0])],
-                       [0, np.sin(rotacion[0]), np.cos(rotacion[0])]])
-        
-        Ry = np.array([[np.cos(rotacion[1]), 0, np.sin(rotacion[1])],
-                       [0, 1, 0],
-                       [-np.sin(rotacion[1]), 0, np.cos(rotacion[1])]])
-        
-        Rz = np.array([[np.cos(rotacion[2]), -np.sin(rotacion[2]), 0],
-                       [np.sin(rotacion[2]), np.cos(rotacion[2]), 0],
-                       [0, 0, 1]])
-        
-        R = np.dot(Rz, np.dot(Ry, Rx)) # Rotamos en x, luego en y luego en z
-
-        return np.dot(R, punto) # Devolvemos el punto rotado en los 3 ejes
-    '''
-    def rotar_punto(self, punto, rotacion):
-        Rx = np.array([[1, 0, 0],
-                       [0, np.cos(rotacion[0]), -np.sin(rotacion[0])],
-                       [0, np.sin(rotacion[0]), np.cos(rotacion[0])]])
-        Ry = np.array([[np.cos(rotacion[1]), 0, np.sin(rotacion[1])],
-                       [0, 1, 0],
-                       [-np.sin(rotacion[1]), 0, np.cos(rotacion[1])]])
-        Rz = np.array([[np.cos(rotacion[2]), -np.sin(rotacion[2]), 0],
-                       [np.sin(rotacion[2]), np.cos(rotacion[2]), 0],
-                       [0, 0, 1]])
-        R = Rz @ Ry @ Rx
-        return R @ punto
+    
 
     def animar(self, plano, vectores, puntos, rotacion=None):
+        #mpl.rcParams.update(mpl.rcParamsDefault)
+        #plt.style.use("default")
+        plt.style.use("tableau-colorblind10")
+        #plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+        #plt.style.use("bmh") # https://python-charts.com/es/matplotlib/estilos/#google_vignette
+        
         fig = plt.figure()
-        ax = fig.add_subplot(111, projection="3d")
+        ax = fig.add_subplot(111, projection="3d", autoscale_on=True)
 
         # pintamos plano con meshgrid
 
         X, Y = np.meshgrid(np.linspace(-5, 5), np.linspace(-5, 5))
-        Z = -(plano[0] * X + plano[1] * Y + plano[3]) / plano[2] # Ecuacion del plano 
+        Z = -(plano[0] * X + plano[1] * Y + plano[3]) / plano[2] # Ecuacion del plano (tomamos z como la variable dependiente)
 
         ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
 
         def update_s_r(frame):
+                          
             ax.clear()
             ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
 
 
             if frame >= .5:
                 punto = puntos["P"]
-                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10,
-                            label="Punto a proyectar")
+                ax.scatter(punto[0], punto[1], punto[2], c='yellow', s=10)
+                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
+                        fontsize=8, ha='center', va='bottom', color='black')
+                
 
             if frame >= 1 + sep:
                 punto = puntos["P_0"]
-                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10,
-                            label="Punto origen en el plano")
+                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10)
+                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
+                        fontsize=8, ha='center', va='bottom', color='black')
 
             if frame >= 1 + 2 * sep:
                 vector = vectores["u"]
                 ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], 
-                          vector[5], color="purple", arrow_length_ratio=0, 
+                          vector[5], color="purple", arrow_length_ratio=0.1,
                           label="Vector u (P-P0)")
 
             if frame >= 1 + 3 * sep:
                 vector = vectores["n"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0,
+                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1,
                           label="vector n (normal al plano)")
                 vector = vectores["-n"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0)
+                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1)
 
             if frame >= 1 + 4 * sep:
                 vector = vectores["proy_n_u"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="green", arrow_length_ratio=0,
+                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="green", arrow_length_ratio=0.1,
                           label="Proyeccion ortogonal")
 
             if frame >= 1 + 5 * sep:
                 punto = puntos["P_"]
-                ax.scatter(punto[0], punto[1], punto[2], c='red', s=10, 
-                           label="Punto proyectado")
-                
+                ax.scatter(punto[0], punto[1], punto[2], c='red', s=10)        
+                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
+                        fontsize=8, ha='center', va='bottom', color='black')    
+            #ax.legend(loc='lower left') no se puede colocar indice sin warning
+
+            
+
+            
         def update_con_rotacion(frame):
-            ax.clear()
-            ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
+                ax.clear()
+                ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
 
-            if frame >= .5:
-                punto = self.rotar_punto(puntos["P"], rotacion)
-                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10, label="P")
 
-            if frame >= 1 + sep:
-                punto = self.rotar_punto(puntos["P_0"], rotacion)
-                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10, label="P_0")
+                if frame >= .5:
+                    punto = puntos["P"]
+                    ax.scatter(punto[0], punto[1], punto[2], c='yellow', s=10)
+                    ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
+                            fontsize=8, ha='center', va='bottom', color='black')
 
-            if frame >= 2 + sep:
-                vector = vectores["u"]
-                origen = self.rotar_punto(vector[:3], rotacion)
-                destino = self.rotar_punto(vector[:3] + vector[3:], rotacion)
-                ax.quiver(origen[0], origen[1], origen[2], destino[0]-origen[0], destino[1]-origen[1], destino[2]-origen[2], color="purple", arrow_length_ratio=0)
 
-            if frame >= 3 + sep:
-                vector = vectores["n"]
-                origen = self.rotar_punto(vector[:3], rotacion)
-                destino = self.rotar_punto(vector[:3] + vector[3:], rotacion)
-                ax.quiver(origen[0], origen[1], origen[2], destino[0]-origen[0], destino[1]-origen[1], destino[2]-origen[2], color="orange", arrow_length_ratio=0)
+                if frame >= 1 + sep:
+                    punto = puntos["P_0"]
+                    ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10)
+                    ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
+                            fontsize=8, ha='center', va='bottom', color='black')
 
-                vector = vectores["-n"]
-                origen = self.rotar_punto(vector[:3], rotacion)
-                destino = self.rotar_punto(vector[:3] + vector[3:], rotacion)
-                ax.quiver(origen[0], origen[1], origen[2], destino[0]-origen[0], destino[1]-origen[1], destino[2]-origen[2], color="orange", arrow_length_ratio=0)
+                if frame >= 1 + 2 * sep:
+                    vector = vectores["u"]
+                    ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], 
+                              vector[5], color="purple", arrow_length_ratio=0.1,
+                              label="Vector u (P-P0)")
 
-            if frame >= 4 + sep:
-                vector = vectores["proy_n_u"]
-                origen = self
+                if frame >= 1 + 3 * sep:
+                    vector = vectores["n"]
+                    ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1,
+                              label="vector n (normal al plano)")
+                    vector = vectores["-n"]
+                    ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1)
+
+                if frame >= 1 + 4 * sep:
+                    vector = vectores["proy_n_u"]
+                    ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="green", arrow_length_ratio=0.1,
+                              label="Proyeccion ortogonal")
+
+                if frame >= 1 + 5 * sep:
+                    punto = puntos["P_"]
+                    ax.scatter(punto[0], punto[1], punto[2], c='red', s=10)        
+                    ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
+                            fontsize=8, ha='center', va='bottom', color='black')   
+
+                if frame >= 1 + 6 * sep:
+                    punto = puntos["P_r"]
+                    ax.scatter(punto[0], punto[1], punto[2], c='green', s=10)        
+                    ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
+                            fontsize=8, ha='center', va='bottom', color='black') 
 
 
         sep = 2
-        ext_dur = 6
-        initial_frame = 0
-        if rotacion is not None:
-            initial_frame += 5 * sep
-
+        ext_int = 2
 
         if rotacion is not None:
-            ani2 = FuncAnimation(fig, update_con_rotacion, frames=range(initial_frame + 5 * sep), interval=1000)
+            ani2 = FuncAnimation(fig, update_con_rotacion, frames=range((8+ext_int) * sep), interval=1000)
             ani2.save("proyeccion_rotacion.gif", fps=10)
         else:
-            ani = FuncAnimation(fig, update_s_r, frames=range(initial_frame + (7+ext_dur) * sep), interval=1000)
+            ani = FuncAnimation(fig, update_s_r, frames=range((7+ext_int) * sep), interval=1000)
             ani.save("proyeccion.gif", fps=10)
         
         plt.show()
