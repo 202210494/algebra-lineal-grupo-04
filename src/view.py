@@ -98,3 +98,14 @@ class ProyeccionView:
         except ValueError:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para el plano.")
             return None
+
+    def get_rotaciones(self):
+        try:
+            # si no se detalla se considerara 0
+            rot_x = float(self.entry_rot_x.get()) if self.entry_rot_x.get() else 0
+            rot_y = float(self.entry_rot_y.get()) if self.entry_rot_y.get() else 0
+            rot_z = float(self.entry_rot_z.get()) if self.entry_rot_z.get() else 0
+            return np.radians([rot_x, rot_y, rot_z]) # convertir a radianes
+        except ValueError:
+            messagebox.showerror("Input Error", "Por favor, ingrese números válidos para las rotaciones.")
+            return None
