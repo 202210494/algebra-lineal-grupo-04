@@ -64,11 +64,10 @@ class ProyeccionController:
                 ax.scatter(punto[0], punto[1], punto[2], c='red', s=10, 
                            label="Punto proyectado")
 
-            plt.legend()
 
         sep = 2
         ext_dur = 6
 
         ani = FuncAnimation(fig, update, frames=range(1 + (6+ext_dur) * sep), interval=1000)
-        ani.save("proyeccion.gif", writer="imagemagick")
+        ani.save("proyeccion.gif", fps=10)
         plt.show()
