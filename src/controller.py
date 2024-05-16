@@ -145,14 +145,16 @@ class ProyeccionController:
 
         sep = 2
         ext_dur = 6
+        initial_frame = 0
+        if rotacion is not None:
+            initial_frame += 5 * sep
 
-        ani = FuncAnimation(fig, update_s_r, frames=range(1 + (7+ext_dur) * sep), interval=1000)
-        #delay =  (1 + (7 + ext_dur) * sep)
-        delay =(.5) # por mientras
-        time.sleep(delay) # Esperamos a que termine la animacion, pero crashea
 
-        if rotacion.any():
-            ani = FuncAnimation(fig, update_con_rotacion, frames=range(1 + 5 * sep), interval=1000)
-
-        ani.save("proyeccion.gif", fps=10)
+        if rotacion is not None:
+            ani2 = FuncAnimation(fig, update_con_rotacion, frames=range(initial_frame + 5 * sep), interval=1000)
+            ani2.save("proyeccion_rotacion.gif", fps=10)
+        else:
+            ani = FuncAnimation(fig, update_s_r, frames=range(initial_frame + (7+ext_dur) * sep), interval=1000)
+            ani.save("proyeccion.gif", fps=10)
+        
         plt.show()
