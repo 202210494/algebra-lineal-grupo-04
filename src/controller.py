@@ -3,8 +3,7 @@ from view import ProyeccionView
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
-import time
-import matplotlib as mpl
+
 
 class ProyeccionController:
     def __init__(self, root):
@@ -29,8 +28,6 @@ class ProyeccionController:
             plano, vectores, puntos = self.model.calc_con_rotacion(P_P, PL_M, rotacion)
             self.animar(plano, vectores, puntos, rotacion)
 
-
-    
 
     def animar(self, plano, vectores, puntos, rotacion=None):
         #mpl.rcParams.update(mpl.rcParamsDefault)
@@ -93,20 +90,15 @@ class ProyeccionController:
                         fontsize=8, ha='center', va='bottom', color='black')    
             #ax.legend(loc='lower left') no se puede colocar indice sin warning
 
-            
-
-            
         def update_con_rotacion(frame):
                 ax.clear()
                 ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
-
 
                 if frame >= .5:
                     punto = puntos["P"]
                     ax.scatter(punto[0], punto[1], punto[2], c='yellow', s=10)
                     ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
                             fontsize=8, ha='center', va='bottom', color='black')
-
 
                 if frame >= 1 + sep:
                     punto = puntos["P_0"]
@@ -143,7 +135,6 @@ class ProyeccionController:
                     ax.scatter(punto[0], punto[1], punto[2], c='green', s=10)        
                     ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
                             fontsize=8, ha='center', va='bottom', color='black') 
-
 
         sep = 2
         ext_int = 2

@@ -125,7 +125,6 @@ class ProyeccionView:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para el punto.")
             return None
 
-
     def get_plano(self):
         try:
             PL_M = np.array([float(self.entry_a.get()), float(self.entry_b.get()), float(self.entry_c.get()), float(self.entry_d.get())])

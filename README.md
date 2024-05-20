@@ -1,32 +1,29 @@
 # Proyecciones ortogonales y rotaciones
 
-## TODO S9
-
-![vive la vida](proyeccion.gif)
+## Entrega 3
 
 ### Observaciones y formato
 
-- Levantar observaciones del docente
-  - [ ] Ingresar e del plano forma general.
-  - [ ] Implementar rotaciones.
-  - [x] Usar una GUI.
-  - [x] Implementar un visualizador para los procesos
-- Agregar figuras y diagramas al informe (ecuaciones NO IMG)
-
-### Diagrama de Flujo, usos y conclusiones
-
-- [ ] Elaborar diagrama de flujo del programa
-- [ ] Indicar usos y el tipo de problema que se puede resolver (detallar conexion programa-tema (?))
-- [ ] Conclusiones
-
-### Estado del codigo y validaciones
-
-- [ ] Codigo al 80%
+- [x] Implementar un visualizador para los procesos
+- [ ] Agregar figuras y diagramas al informe (ecuaciones NO IMG)
+- [ ] Codigo al 100%
 - [ ] validar resultados para cada ejecucion (3 ejemplos)
+
+### TODO S10
+
+- [x] Desespagetizar
+- [ ] Vizualizar rotacion / del punto y luego desarrollo [v1 | v2]*
+
+- [ ] Mejorar visualizacion (grado a grado?) (crecer el vector?)
+- [ ] Try mantener zoom aplicado entre visualizaciones
+- [ ] implementar funcionalidades didacticas
+- [ ] Actualizar link ejecutable y README.MD
+
+![vive la vida y no dejes que la vida te viva](proyeccion.gif)
 
 ---
 
-# Descripcion del proyecto
+## Descripcion del proyecto
 
 Las proyecciones ortogonales y las rotaciones, son piedras angulares en disciplinas como arquitectura, ingeniería y diseño. Sin embargo, su abstracción y complejidad pueden ser intimidantes. ¿Cómo hacer que estas ideas cobren vida y sean comprensibles para todos? En este proyecto, abordaremos este desafío mediante la creación de simulaciones computarizadas. Desde la formulación de ecuaciones hasta la manipulación de objetos en un espacio 3D, nuestro objetivo es hacer que las proyecciones y las rotaciones sean accesibles para todos.
 
