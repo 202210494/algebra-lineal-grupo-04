@@ -20,7 +20,7 @@ class ProyeccionView:
         self.style.map("TButton", background=[('active', "#1A4B27"), ('pressed', "#1A2A4B")])  # Cambiar color al pasar el mouse
                              
         
-        self.style.configure("TEntry", fieldbackground="#4D4D4D", foreground="#FFFFFF", insertbackground="cyan", selectbackground="blue", selectforeground="white")
+        self.style.configure("TEntry", fieldbackground="#4D4D4D", foreground="#FFFFFF", insertbackground="cyan", selectbackground="blue", selectforeground="white") 
 
         self.root.configure(bg="#2E2E2E")
 
@@ -119,7 +119,8 @@ class ProyeccionView:
 
     def get_punto(self):
         try:
-            P_P = np.array([float(self.entry_px.get()), float(self.entry_py.get()), float(self.entry_pz.get())])
+            P_P = np.array([1,0,0]) #dev
+            #P_P = np.array([float(self.entry_px.get()), float(self.entry_py.get()), float(self.entry_pz.get())])
             return P_P
         except ValueError:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para el punto.")
@@ -127,7 +128,8 @@ class ProyeccionView:
 
     def get_plano(self):
         try:
-            PL_M = np.array([float(self.entry_a.get()), float(self.entry_b.get()), float(self.entry_c.get()), float(self.entry_d.get())])
+            PL_M = np.array([1,2,3,4])
+            #PL_M = np.array([float(self.entry_a.get()), float(self.entry_b.get()), float(self.entry_c.get()), float(self.entry_d.get())])
             return PL_M
         except ValueError:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para el plano.")
@@ -139,6 +141,7 @@ class ProyeccionView:
             rot_x = float(self.entry_rot_x.get()) if self.entry_rot_x.get() else 0
             rot_y = float(self.entry_rot_y.get()) if self.entry_rot_y.get() else 0
             rot_z = float(self.entry_rot_z.get()) if self.entry_rot_z.get() else 0
+            rot_z = 180
             return np.radians([rot_x, rot_y, rot_z]) # convertir a radianes
         except ValueError:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para las rotaciones.")

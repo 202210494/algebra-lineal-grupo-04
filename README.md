@@ -12,11 +12,13 @@
 ### TODO S10
 
 - [x] Desespagetizar
-- [ ] Vizualizar rotacion / del punto y luego desarrollo [v1 | v2]*
+- [x] Vizualizar rotacion / del punto [v1 | v2]*
+- [ ] Animar la rotacion del punto por el metodo geometrico
 
 - [ ] Mejorar visualizacion (grado a grado?) (crecer el vector?)
 - [ ] Try mantener zoom aplicado entre visualizaciones
 - [ ] implementar funcionalidades didacticas
+- [ ] Escoger estilo [Estilos MPL] (<https://python-charts.com/es/matplotlib/estilos/#google_vignette>)
 - [ ] Actualizar link ejecutable y README.MD
 
 ![vive la vida y no dejes que la vida te viva](proyeccion.gif)

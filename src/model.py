@@ -94,13 +94,10 @@ class ProyeccionModel:
         # hallar punto proyectado P'
         P_P_ = P_P + proy_n_u
         self.puntos["P_"] = P_P_
-
-        self.describir_proyeccion(PL_M)
         
         # mandamos el plano, los vectores y los puntos
         return PL_M, self.vectores, self.puntos 
 
- 
 
     def rotar_punto(self, punto, rotacion):
 
@@ -121,17 +118,34 @@ class ProyeccionModel:
         return np.dot(R, punto) # Devolvemos el punto rotado en los 3 ejes
 
     def calc_con_rotacion(self, P_P, PL_M, rotacion):
-        # calculamos la proyeccion
-        PL_M, vectores, puntos = self.calcular_proyeccion(P_P, PL_M)
-        # rotamos el punto proyectado
-        puntos["P_r"] = self.rotar_punto(puntos["P_"], rotacion)
-        print("Rotacion del punto proyectado:")
+        # Rotamos el punto inicial y lo guardamos como punto a proyectar
+        self.puntos["P"] = self.rotar_punto(P_P, rotacion)
+
+        self.puntos["P_Rotar"] = P_P
+
+        # calculamos la proyeccion desde el nuevo punto 
+        self.calcular_proyeccion(self.puntos["P"], PL_M)
+        
+        print("Rotacion en rad del punto a proyectar:")
         print("------------------------------")
         print(f"Rotacion en X: {rotacion[0]}")
         print(f"Rotacion en Y: {rotacion[1]}")
         print(f"Rotacion en Z: {rotacion[2]}\n")
-        print(f"Punto proyectado rotado: \n{self.parsed_point(puntos['P_r'])}\n")
+        print(f"Punto ha rotar: {self.parsed_point(P_P)}")
+        print(f"Punto proyectado rotado: \n{self.parsed_point(self.puntos['P'])}\n")
+        
+        self.describir_proyeccion(PL_M)
+
         #print("En la animacion puedes ver como se proyecta el punto P sobre el plano y luego se rota\n")
 
-        return PL_M, vectores, puntos
+        return PL_M, self.vectores, self.puntos
+
+    def calc_max_v(self):
+        m_s = 0
+        for v in self.vectores.values():
+            c_s = np.sqrt(v[3]**2 + v[4]**2 + v[5]**2) # get modulo
+            if(c_s > m_s):
+                m_s = c_s
+
+        return m_s
 
