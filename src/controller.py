@@ -43,6 +43,14 @@ class ProyeccionController:
         #plt.style.use("bmh") # https://python-charts.com/es/matplotlib/estilos/#google_vignette
         
         fig = plt.figure()
+
+        # PARA FIXEAR EL PROBLEMA DEL ZOOM ES POSIBLE QUE plt.xlim(izq,der) pueda ser util
+        #  Le metes una ecuacion por toda la cara
+        # texto1 = plt.text(0.5, 0.5, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
+        #          ha="center", va="center",
+        #          fontsize=17, transform=plt.gca().transAxes)
+
+
         if rotacion is not None:
             ax = fig.add_subplot(122, projection="3d")
             ax1 = fig.add_subplot(121, projection="3d")
@@ -101,47 +109,27 @@ class ProyeccionController:
 
         def _update_proyeccion_rotacion(frame):
                           
-            ax.clear()
-            ax.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
+            _update_proyeccion(frame)
             ax1.clear()
             ax1.plot_surface(X, Y, Z, color="yellow", alpha=0.5)
 
-            if frame >= 2:
-                punto = puntos["P"]
-                ax.scatter(punto[0], punto[1], punto[2], c='yellow', s=10)
-                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
-                        fontsize=8, ha='center', va='bottom', color='black')
-                
-            if frame >= 2 + sep:
-                punto = puntos["P_0"]
-                ax.scatter(punto[0], punto[1], punto[2], c='blue', s=10)
-                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
-                        fontsize=8, ha='center', va='bottom', color='black')
+            ####################################ADD Formulas en Latex####################
 
-            if frame >= 2 + 2 * sep:
-                vector = vectores["u"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], 
-                          vector[5], color="purple", arrow_length_ratio=0.1,
-                          label="Vector u (P-P0)")
+            #texto1 = ax1.text(0.5, 0.5, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
+            #     ha="center", va="center", fontsize=17, transform=ax1.transAxes)
+            #  text2d para 2d, text para 3d
 
-            if frame >= 2 + 3 * sep:
-                vector = vectores["n"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1,
-                          label="vector n (normal al plano)")
-                vector = vectores["-n"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="orange", arrow_length_ratio=0.1)
+            # ax espacio en los ejes
+            #ax1.text(0.5, 0.5, 0, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
+            # ha="left", va="bottom", fontsize=17)
 
-            if frame >= 2 + 4 * sep:
-                vector = vectores["proy_n_u"]
-                ax.quiver(vector[0], vector[1], vector[2], vector[3], vector[4], vector[5], color="green", arrow_length_ratio=0.1,
-                          label="Proyeccion ortogonal")
-
-            if frame >= 2 + 5 * sep:
-                punto = puntos["P_"]
-                ax.scatter(punto[0], punto[1], punto[2], c='red', s=10)        
-                ax.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', #                         
-                        fontsize=8, ha='center', va='bottom', color='black')    
+            fig.text(0.5, 0.05, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
+                ha="left", va="center", fontsize=17)
             
+            ##########X#######
+            #fig.text(0.8, 0.05, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
+            #    ha="right", va="center", fontsize=17)
+
             if frame >= .5:
                 punto = puntos["P_Rotar"]
                 ax1.scatter(punto[0], punto[1], punto[2], c='red', s=20)
