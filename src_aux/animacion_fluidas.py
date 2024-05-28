@@ -28,7 +28,7 @@ def animar(plano, vectores, puntos, size):
 
                 ### parte debil (en proceso) ###
                 vecs = {
-                     "n" : (20,"red")
+                     "n" : (20,"red",100)
                 }
                 points = {
                         "P" : (0, "blue"),
@@ -43,10 +43,10 @@ def animar(plano, vectores, puntos, size):
 
                 for key, v in vecs.items():
                     
-                    np.linspace(0,1, 99)
                     if frame >= v[0]:
                         vector = vectores[key]
-                        vector.dibujar(ax, color=v[1])
+                        duration = v[2]
+                        vector.dibujar(ax, color=v[1], frame =frame, f_inicio= v[0], f_dur = duration)
                         print(frame)
 
                 
