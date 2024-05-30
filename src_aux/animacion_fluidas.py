@@ -59,7 +59,10 @@ def animar(plano, vectores, puntos, size):
     ext_int = 2
 
     ani = FuncAnimation(fig, _update_proyeccion, frames=range(200), interval=100)
+    #ani.save("proye.gif", writer="pillow")
+    ani.save("proye.gif", fps=30)
     plt.show()
+    
 
 
 plano = np.array([1,2,3,4])

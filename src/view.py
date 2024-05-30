@@ -119,7 +119,7 @@ class ProyeccionView:
 
     def get_punto(self):
         try:
-            P_P = np.array([1,0,0]) #dev
+            P_P = np.array([1,2,3]) #dev
             #P_P = np.array([float(self.entry_px.get()), float(self.entry_py.get()), float(self.entry_pz.get())])
             return P_P
         except ValueError:
@@ -128,7 +128,7 @@ class ProyeccionView:
 
     def get_plano(self):
         try:
-            PL_M = np.array([1,2,3,4])
+            PL_M = np.array([5,2,-2,6])
             #PL_M = np.array([float(self.entry_a.get()), float(self.entry_b.get()), float(self.entry_c.get()), float(self.entry_d.get())])
             return PL_M
         except ValueError:
@@ -141,7 +141,7 @@ class ProyeccionView:
             rot_x = float(self.entry_rot_x.get()) if self.entry_rot_x.get() else 0
             rot_y = float(self.entry_rot_y.get()) if self.entry_rot_y.get() else 0
             rot_z = float(self.entry_rot_z.get()) if self.entry_rot_z.get() else 0
-            rot_z = 180
+            rot_z = 90
             return np.radians([rot_x, rot_y, rot_z]) # convertir a radianes
         except ValueError:
             messagebox.showerror("Input Error", "Por favor, ingrese números válidos para las rotaciones.")
