@@ -77,17 +77,18 @@ class ProyeccionController:
             ### parte debil (en proceso)
             # mejorar robustez y modularidad
             # ajustar duracion de los vectores
+            t = 10
             vecs = {
                 # key : (frame_inicio, color, duracion)
-                    "u" : (60, "purple", 100),
-                    "n" : (80, "orange", 1000),
-                    "-n" : (80, "orange", 1000),
-                    "proy_n_u" : (100, "green", 20),
+                    "u" : (6*t, "purple", 10*t),
+                    "n" : (16*t, "orange", 3*t),
+                    "-n" : (16*t, "orange", 3*t),
+                    "proy_n_u" : (20*t, "green", 6*t),
             }
             points = {
-                        "P" : (1, "blue"),
-                        "P_0" : (20, "orange"),
-                        "P_" : (100, "red")
+                        "P" : (2*t, "blue"),
+                        "P_0" : (4*t, "orange"),
+                        "P_" : (30*t, "red")
             }
             
             for key, v in points.items():
@@ -164,19 +165,6 @@ class ProyeccionController:
             ##########X#######
             #fig.text(0.8, 0.05, r'$E = \frac{V_0}{r*\ln(\frac{b}{a})}$', 
             #    ha="right", va="center", fontsize=17)
-            '''
-            if frame >= .5:
-                punto = puntos["P_Rotar"]
-                ax1.scatter(punto[0], punto[1], punto[2], c='red', s=20)
-                ax1.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
-                        fontsize=8, ha='center', va='bottom', color='black')
-            
-            if frame >= 1.5:
-                punto = puntos["P"]
-                ax1.scatter(punto[0], punto[1], punto[2], c='yellow', s=20)
-                ax1.text(punto[0], punto[1], punto[2], f'P ({round(punto[0],2)}, {round(punto[1],2)}, {round(punto[2],2)})', # 
-                        fontsize=8, ha='center', va='bottom', color='black')
-            '''
     
         sep = 2
         ext_int = 2
